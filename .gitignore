@@ -1,0 +1,10 @@
+db.sqlite3
+.vscode
+/locale
+/media
+views_scrape.py
+*__pycache__
+*.pyc
+1176871825.jpg.0.jpglovs3ou2.tmp
+/ portal/migrations/
+ /static/
