@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'easy_thumbnails',
+    'django_cleanup.apps.CleanupConfig',
+    'hitcount',
 
     'portal.apps.PortalConfig',
 ]

@@ -1,5 +1,8 @@
-from django.shortcuts import render, HttpResponse, redirect, reverse
-from .models import Category, Post, Tag
+from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
+from .models import Category, Post, Tag, Comment
+from django.views.generic import View, DetailView
+from hitcount.views import HitCountDetailView
+from .forms import CommentForm
 
 from bs4 import BeautifulSoup
 import requests
@@ -10,11 +13,85 @@ import wget
 
 def home_view(request):
     context = {
+        'categories': Category.objects.all()[:10],
         'posts': Post.objects.all()[5:19],
+        'tags': Tag.objects.all(),
         'four_posts': Post.objects.filter(status='draft')[:4],
     }
     # print(context)
     return render(request, 'portal/index.html', context)
+    
+
+class CategoryByCreated:
+
+    def get_order(self):
+        post_by_cat = Category.objects.post_set.all()
+        pst = post_by_cat.order_by('created')
+        print(pst)
+        return pst
+
+    def get_reverse_order(self):
+        return Post.objects.order_by('-created')
+
+
+class CategoryDetailView(CategoryByCreated, View):
+
+    def get(self, request, category_slug):
+        category = Category.objects.get(slug=category_slug)
+        
+        by_categories = get_object_or_404(Category, slug=category_slug)
+        by_categories = by_categories.post_set.all()
+        by_date = by_categories.order_by('created')
+        
+        context = {
+            'categories': Category.objects.all()[:10],
+            'category': category,
+            'posts_by_cats': by_categories,
+            'by_date': by_date,
+        }
+        return render(request, 'portal/category-detail.html', context)
+
+
+class PostDetailView(HitCountDetailView):
+    model = Post
+    count_hit = True
+    template_name = 'portal/blog-detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostDetailView, self).get_context_data( *args, **kwargs)
+        context['post'] = self.get_object()
+        # context['post_comments'] = Comment.objects.filter(reply_to__null=True)
+
+        # context['form'] = CommentForm()
+        return context
+        
+
+class AddComment(View):
+    def post(self, request, pk):
+        post = Post.objects.get(id=pk)
+        # initial_data = {'author': 'Аноним'}
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if request.POST.get('reply_to', None):
+                form.reply_to_id = int(request.POST.get('reply_to'))
+            form.post = post
+            form.save()
+        print(request.POST)
+        return redirect(post.get_absolute_url())
+
+
+
+class TagsCategoryDetailView(View):
+    template_name = 'portal/tags.html'
+
+    def get(self, request, tag_slug):
+        context = {}
+        tag = Tag.objects.get(slug=tag_slug)
+        context['tag'] = tag
+        context['posts_by_tag'] = tag.post_set.all()
+        return render(request, self.template_name, context)
+
 
 
 def scrape(request):
@@ -84,6 +161,7 @@ def scrape(request):
                     try:
                         for i in list_images.find_all('div', class_='nDTlD'):
                             a = i.find('div', class_='_232xU').find('div', class_='IEpfq').find('img')['src']
+                            # img_uns.append(a)
                             img_uns.append(a)
                             print(a)
                     except:
@@ -106,9 +184,8 @@ def scrape(request):
                     except:
                         pass
 
-                # print(f'ПОЛУЧЕННЫЙ СПИСОК {img_uns}')
                 img.append(random.choice(img_uns))
-                # print(f'СЛУЧАЙНОЕ ФОТО : {img}')
+
             img = ''.join(img)
 
             content = soup.find('div', class_='c-entry-content')
@@ -131,7 +208,7 @@ def scrape(request):
         print(img)
 
         try:
-            path_to_media = 'D:/NEW_20/MEDIA_PORTAL/django/media/images'
+            # path_to_media = 'D:/NEW_20/MEDIA_PORTAL/django/media/images'
             temp_post = Post()
             temp_category, _ = Category.objects.get_or_create(name=category)
 
@@ -148,7 +225,12 @@ def scrape(request):
                 tmp_tag, _ = Tag.objects.get_or_create(name=i)
 
             if not Post.objects.filter(raw_title=temp_post.raw_title).exists():
-                temp_post.image = wget.download(img, path_to_media)
+                path_to_media = 'D:/NEW_20/MEDIA_PORTAL/django/media/images'
+                img_downloaded = wget.download(img, path_to_media) 
+                print(f'images/{img.split("/")[-1]}')
+                                
+                temp_post.image = f'images/{img.split("/")[-1]}'
+                # temp_post.image = wget.download(img, path_to_media)
                 temp_post.save()
 
                 for i in tags:
@@ -167,11 +249,8 @@ def scrape(request):
 
         print('===================== DONE ==========================')
 
-        
-
         # break  
-
-    # return HttpResponse('OK')  
+ 
     return redirect('home')  
 
         

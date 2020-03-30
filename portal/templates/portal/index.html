@@ -270,8 +270,8 @@
 									<div class="overlay-box">
 										<div class="overlay-inner">
 											<div class="content">
-												<a href="properties-detail.html" class="category">{{ post.category.name }}</a>
-												<h3><a href="properties-detail.html">{{ post.title }}</a></h3>
+												<a href="{{ post.category.get_absolute_url }}" class="category">{{ post.category.name }}</a>
+												<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
 												<div class="text"></div>
 												
 											</div>
@@ -285,12 +285,12 @@
 						<div class="projects-block masonry-item col-lg-4 col-md-6 col-sm-12">
 							<div class="inner-box">
 								<div class="image">
-									<img src="{% thumbnail post.image 740x476 crop='smart' %}" alt="" />
+									<img src="{% thumbnail post.image 740x476 crop %}" alt="" />
 									<div class="overlay-box">
 										<div class="overlay-inner">
 											<div class="content">
-												<a href="properties-detail.html" class="category">{{ post.category.name }}</a>
-												<h3><a href="properties-detail.html">{{ post.title }}</a></h3>
+												<a href="{{ post.category.get_absolute_url }}" class="category">{{ post.category.name }}</a>
+												<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
 												
 											</div>
 										</div>
@@ -307,8 +307,8 @@
 									<div class="overlay-box">
 										<div class="overlay-inner">
 											<div class="content">
-												<a href="properties-detail.html" class="category">{{ post.category.name }}</a>
-												<h3><a href="properties-detail.html">{{ post.title }}</a></h3>
+												<a href="{% url 'category_detail' category_slug=post.category.slug %}" class="category">{{ post.category.name }}</a>
+												<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
 												<div class="text">Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel.</div>
 												
 											</div>
@@ -326,8 +326,8 @@
 									<div class="overlay-box">
 										<div class="overlay-inner">
 											<div class="content">
-												<a href="properties-detail.html" class="category">{{ post.category.name }}</a>
-												<h3><a href="properties-detail.html">{{ post.title }}</a></h3>
+												<a href="{{ post.category.get_absolute_url }}" class="category">{{ post.category.name }}</a>
+												<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
 												
 											</div>
 										</div>
@@ -362,7 +362,7 @@
 											<div class="inner-column">
 												<div class="image">
 													<div class="date-box">13 <br> Feb</div>
-													<a href="blog-detail.html"><img src="{% thumbnail post.image 740x446 crop %}" alt="" /></a>
+													<a href="{{ post.get_absolute_url }}"><img src="{% thumbnail post.image 740x446 crop %}" alt="" /></a>
 												</div>
 											</div>
 										</div>
@@ -371,16 +371,16 @@
 										<div class="content-column col-lg-7 col-md-7 col-sm-12">
 											<div class="inner-column">
 												<div class="upper-box">
-													<h4><a href="blog-detail.html">{{ post.title }}</a></h4>
+													<h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
 													<ul class="post-meta">
 														<li><a href="blog-detail.html"><span class="icon fa fa-user"></span> {{ post.author|title }}</a></li>
-														<li><a href="blog-detail.html"><span class="icon fa fa-eye"></span> 20</a></li>
-														<li><a href="blog-detail.html"><span class="icon fas fa-comment-dots"></span> 15 comments</a></li>
+														<li><a href="blog-detail.html"><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</a></li>
+														<li><a href="blog-detail.html"><span class="icon fas fa-comment-dots"></span> {{ post.comment_set.count }}</a></li>
 													</ul>
 													<div class="separator"></div>
 												</div>
 												<div class="lower-box">
-													<div class="text">{{ post.body|safe|truncatewords_html:10 }}<a class="read-more" href="blog-detail.html">Читать полностью</a></div>
+													<div class="text">{{ post.body|safe|truncatewords_html:10 }}<a class="read-more" href="{{ post.get_absolute_url }}">Читать полностью</a></div>
 												</div>
 											</div>
 										</div>
@@ -424,248 +424,16 @@
 							<!--Category Widget-->
 							<div class="sidebar-widget categories-widget">
 								<div class="sidebar-title">
-									<h4>Categories</h4>
+									<h4>Категория</h4>
 								</div>
 								<ul class="cat-list">
-									<li class="clearfix"><a href="#">Villa <span>(30)</span></a></li>
-									<li class="clearfix"><a href="#">Appartments<span>(9)</span></a></li>
-									<li class="clearfix"><a href="#">Houses<span>(13)</span></a></li>
-									<li class="clearfix"><a href="#">Flats<span>(70)</span></a></li>
-									<li class="clearfix"><a href="#">Commercial Shops<span>(11)</span></a></li>
-									<li class="clearfix"><a href="#">Commercial Plots<span>(5)</span></a></li>
-									<li class="clearfix"><a href="#">Luxury Building<span>(14)</span></a></li>
+									{% for category in categories %}
+										<li class="clearfix"><a href="{{ category.get_absolute_url }}">{{ category.name }} <span>({{ category.post_set.count }})</span></a></li>
+									{% endfor %}
 								</ul>
 							</div>
 							<!--End Category Widget-->
 							
-							<!-- Property Tab Widget -->
-							<div class="sidebar-widget property-tab-widget">
-								<div class="widget-content">
-									
-									<!-- Sidebar Title -->
-									<div class="sidebar-title">
-										<h4>Search Property</h4>
-									</div>
-									
-									<!-- Property widget Tabs-->
-									<div class="property-widget-tabs">
-										<!-- Property Tabs-->
-										<div class="property-tabs tabs-box">
-										
-											<!--Tab Btns-->
-											<ul class="tab-btns tab-buttons clearfix">
-												<li data-tab="#property-sale" class="tab-btn active-btn">For Sale</li>
-												<li data-tab="#property-rent" class="tab-btn">For Rent</li>
-											</ul>
-											
-											<!--Tabs Container-->
-											<div class="tabs-content">
-												
-												<!--Tab / Active Tab-->
-												<div class="tab active-tab" id="property-sale">
-													<div class="content">
-														
-														<div class="property-search-form">
-															<form method="post" action="http://ary-themes.com/html/noor_tech/dream-property/index.html">
-																
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>search by property id</label>
-																	<input type="text" name="text" placeholder="Search ID" required>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>search by Address</label>
-																	<input type="text" name="text" placeholder="Address" required>
-																</div>
-																
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>Country</label>
-																	<select class="custom-select-box">
-																		<option>Country</option>
-																		<option>USA</option>
-																		<option>Canada</option>
-																		<option>France</option>
-																		<option>Italy</option>
-																		<option>UAE</option>
-																	</select>
-																</div>
-																
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>City</label>
-																	<select class="custom-select-box">
-																		<option>Any</option>
-																		<option>New York</option>
-																		<option>Los Angeles</option>
-																		<option>Chicago</option>
-																		<option>Houston</option>
-																	</select>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<div class="range-slider-one clearfix">
-																		<label>Area</label>
-																		<div class="area-range-slider"></div>
-																		<div class="input"><input type="text" class="property-amount" name="field-name" readonly></div>
-																		<div class="title">m<sup>2</sup></div>
-																	</div>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<div class="range-slider-one clearfix">
-																		<label>Price Filter</label>
-																		<div class="price-range-slider"></div>
-																		<div class="input"><input type="text" class="price-amount" name="field-name" readonly></div>
-																		<div class="title">US Doller</div>
-																	</div>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<button type="submit" class="theme-btn btn-style-two"><span class="txt">Search</span></button>
-																</div>
-																
-															</form>
-														</div>
-														
-													</div>
-												</div>
-												
-												<!--Tab-->
-												<div class="tab" id="property-rent">
-													<div class="content">
-														
-														<div class="property-search-form">
-															<form method="post" action="http://ary-themes.com/html/noor_tech/dream-property/index.html">
-																
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>search by property id</label>
-																	<input type="text" name="text" placeholder="Search ID" required>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>search by Address</label>
-																	<input type="text" name="text" placeholder="Address" required>
-																</div>
-																
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>Country</label>
-																	<select class="custom-select-box">
-																		<option>Country</option>
-																		<option>USA</option>
-																		<option>Canada</option>
-																		<option>France</option>
-																		<option>Italy</option>
-																		<option>UAE</option>
-																	</select>
-																</div>
-																
-																<!-- Form Group -->
-																<div class="form-group">
-																	<label>City</label>
-																	<select class="custom-select-box">
-																		<option>Any</option>
-																		<option>New York</option>
-																		<option>Los Angeles</option>
-																		<option>Chicago</option>
-																		<option>Houston</option>
-																	</select>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<div class="range-slider-one clearfix">
-																		<label>Area</label>
-																		<div class="area-range-slider"></div>
-																		<div class="input"><input type="text" class="property-amount" name="field-name" readonly></div>
-																		<div class="title">m<sup>2</sup></div>
-																	</div>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<div class="range-slider-one clearfix">
-																		<label>Price Filter</label>
-																		<div class="price-range-slider"></div>
-																		<div class="input"><input type="text" class="price-amount" name="field-name" readonly></div>
-																		<div class="title">US Doller</div>
-																	</div>
-																</div>
-
-																<!-- Form Group -->
-																<div class="form-group">
-																	<button type="submit" class="theme-btn btn-style-two"><span class="txt">Search</span></button>
-																</div>
-																
-															</form>
-														</div>
-														
-													</div>
-												</div>
-												
-											</div>
-										
-										</div>
-									</div>
-							
-								</div>
-							</div>
-							
-							<!-- Properties Widget -->
-							<div class="sidebar-widget recent-properties">
-								
-								<div class="sidebar-title">
-									<h4>Recent Properties</h4>
-								</div>
-								
-								<!-- Post -->
-								<article class="post">
-									<div class="post-thumb">
-										<a href="blog-detail.html">
-											<img src="images/resource/property-thumb-1.jpg" alt="">
-											<span class="status">Sale</span>
-										</a>
-									</div>
-									<span class="location">Lundon, UK</span>
-									<h3><a href="blog-detail.html">Laxury UK Villa</a></h3>
-									<div class="price">$ 800,000</div>
-								</article>
-								
-								<!-- Post -->
-								<article class="post">
-									<div class="post-thumb">
-										<a href="blog-detail.html">
-											<img src="images/resource/property-thumb-2.jpg" alt="">
-											<span class="status">Rent</span>
-										</a>
-									</div>
-									<span class="location">UAE</span>
-									<h3><a href="blog-detail.html">Dubai Commercial Building</a></h3>
-									<div class="price">$ 1500,000</div>
-								</article>
-								
-								<!-- Post -->
-								<article class="post">
-									<div class="post-thumb">
-										<a href="blog-detail.html">
-											<img src="images/resource/property-thumb-3.jpg" alt="">
-											<span class="status sold">Sold</span>
-										</a>
-									</div>
-									<span class="location">Chicago, USA</span>
-									<h3><a href="blog-detail.html">Chicago New Flats</a></h3>
-									<div class="price">$ 500,000</div>
-								</article>
-								
-							</div>
 							
 							<!-- Social Widget -->
 							<div class="sidebar-widget sidebar-social-widget">
@@ -689,17 +457,12 @@
 							<div class="sidebar-widget popular-tags">
 								<!-- Sidebar Title -->
 								<div class="sidebar-title">
-									<h4>Tags</h4>
+									<h4>Теги</h4>
 								</div>
 								<div class="widget-content">
-									<a href="#">Flat</a>
-									<a href="#">Commercial</a>
-									<a href="#">House</a>
-									<a href="#">Villa</a>
-									<a href="#">Market</a>
-									<a href="#">Appartment</a>
-									<a href="#">Small House</a>
-									<a href="#">Offices</a>
+									{% for tag in tags %}
+										<a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a>
+									{% endfor %}
 								</div>
 							</div>
 							

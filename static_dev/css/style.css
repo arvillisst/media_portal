@@ -9025,7 +9025,7 @@ img{
 }
 
 .sidebar-page-container .comments-area .reply-comment{
-	margin-left:160px;	
+	margin-left:120px;	
 }
 
 .sidebar-page-container .comments-area .comment-box .author-thumb{
@@ -9415,7 +9415,7 @@ img{
 	line-height:2em;
 	margin-bottom:15px;
 	color:#222222;
-	font-size:14px;
+	font-size:15px;
 }
 
 .blog-detail .inner-box .lower-content .text blockquote{
@@ -11837,4 +11837,12 @@ img{
 
 .call-to-action-two .btn-box a{
 	display: block;
+}
+
+#like{
+	color: green;
+}
+
+#dislike{
+	color: red;
 }

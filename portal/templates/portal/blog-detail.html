@@ -1,22 +1,24 @@
+{% load static %}
+{% load thumbnail %}
 <!DOCTYPE html>
 <html lang="en">
 
 <!-- dream-property/blog-detail.html  18 Nov 2019 05:13:40 GMT -->
 <head>
 <meta charset="utf-8">
-<title>Dream Property - Real Estate  HTML Template | Blog Detail</title>
+<title>{{ post.title }}</title>
 <!-- Stylesheets -->
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
 
 <!--Color Switcher Mockup-->
-<link href="css/color-switcher-design.css" rel="stylesheet">
+<link href="{% static 'css/color-switcher-design.css' %}" rel="stylesheet">
 <!--Color Themes-->
-<link id="theme-color-file" href="css/color-themes/default-theme.css" rel="stylesheet">
+<link id="theme-color-file" href="{% static 'css/color-themes/default-theme.css' %}" rel="stylesheet">
 
-<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-<link rel="icon" href="images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
 
 <!-- Responsive -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,7 +66,7 @@
                 <div class="auto-container clearfix">
                     <!--Info-->
                     <div class="logo-outer">
-                        <div class="logo"><a href="index-2.html"><img src="images/logo.png" alt="" title=""></a></div>
+                        <div class="logo"><a href="/"><img src="{% static 'images/logo.png' %}" alt="" title=""></a></div>
                     </div>
 
                     <!--Nav Box-->
@@ -255,14 +257,7 @@
     <!-- End Main Header -->
 	
 	<!-- Page Title -->
-    <section class="page-title" style="background-image:url(images/background/2.jpg);">
-    	<div class="auto-container">
-        	<div class="inner-box">
-                <h1>Blogs Detail</h1>
-                <div class="bread-crumb"><a href="index-2.html">Home &nbsp; /</a> <i class="current">Blogs Detail</i></div>
-            </div>
-        </div>
-    </section>
+    
 	<!-- End Page Title -->
 	
 	<!-- Sidebar Page Container -->
@@ -275,153 +270,111 @@
 					<div class="blog-detail">
 						<div class="inner-box">
 							<div class="image">
-								<div class="date-box">16 <br> Jun</div>
-								<img src="images/resource/property-14.jpg" alt="" />
+								<div class="date-box">{{ post.created }}</div>
+								<img src="{{ post.image.url }}" alt="" />
 							</div>
 							<div class="lower-content">
 								<div class="upper-box">
-									<h3>New Well Furnished Luxury Villa and its demand on market.</h3>
+									<h3>{{ post.title }}</h3>
 									<ul class="post-meta">
-										<li><span class="icon fa fa-user"></span> By admin</li>
-										<li><span class="icon fa fa-eye"></span> 54</li>
-										<li><span class="icon fas fa-comment-dots"></span> 27 comments</li>
+										<li><span class="icon fa fa-user"></span> {{ post.author|title }}</li>
+										<li><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</li>
+										<li><span class="icon fas fa-comment-dots"></span> {{ post.comment_set.count }}</li>
 									</ul>
 									<div class="separator"></div>
 								</div>
 								<div class="lower-box">
 									<div class="text">
-										<p>Lorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean commodo ligulai dolor Aenean massa.</p>
-										<p>Lorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean commodo ligulai dolor Aenean massaLorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean commodo ligulai dolor Aenean massa. </p>
-										<blockquote>
-											<div class="quote-icon"><span class="icon flaticon-quote-1"></span></div>
-											<div class="blockquote-text">To be successful in real estate, you must always and consistently put your clients’ best interests first. When you do, your personal needs will be realized beyond your greatest expectations.</div>
-										</blockquote>
-										<p>Lorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean commodo ligulai dolor Aenean massaLorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean commodo ligulai dolor Aenean massa. </p>
-										
-										<!-- Project Gallery Box -->
-										<div class="project-gallery-box">
-											<h4>Property Gallery</h4>
-											<div class="row clearfix">
-											
-												<!-- Project item -->
-												<div class="gallery-item col-lg-4 col-md-4 col-sm-12">
-													<div class="image-box">
-														<figure class="image"><img src="images/gallery/7.jpg" alt=""></figure>
-														<div class="overlay-box">
-															<div class="icon-box">
-																<a href="images/gallery/1.jpg" class="link" data-fancybox="gallery" data-caption=""><span class="icon fa fa-expand-arrows-alt"></span></a>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-												<!-- Project item -->
-												<div class="gallery-item col-lg-4 col-md-4 col-sm-12">
-													<div class="image-box">
-														<figure class="image"><img src="images/gallery/8.jpg" alt=""></figure>
-														<div class="overlay-box">
-															<div class="icon-box">
-																<a href="images/gallery/8.jpg" class="link" data-fancybox="gallery" data-caption=""><span class="icon fa fa-expand-arrows-alt"></span></a>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-												<!-- Project item -->
-												<div class="gallery-item col-lg-4 col-md-4 col-sm-12">
-													<div class="image-box">
-														<figure class="image"><img src="images/gallery/9.jpg" alt=""></figure>
-														<div class="overlay-box">
-															<div class="icon-box">
-																<a href="images/gallery/9.jpg" class="link" data-fancybox="gallery" data-caption=""><span class="icon fa fa-expand-arrows-alt"></span></a>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-											</div>
-											
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean commodo ligulai dolor Aenean massa.</p>
+										<p>{{ post.body|safe }}</p>
 									</div>
 								</div>
-								<!--post-share-options-->
-                                <div class="post-share-options clearfix">
-                                    <div class="pull-left tags"><a href="#">Villa</a> <a href="#">Apartment</a> <a href="#">Commercial</a></div>
-                                    <div class="pull-right social-icons clearfix">
-                                        <div class="share">Share :</div>
+								<!--post-share-options   <div class="share">Поделиться :</div>
                                         <a href="#" class="facebook"><span class="fab fa-facebook-f"></span></a>
                                         <a href="#" class="twitter"><span class="fab fa-twitter"></span></a>
-                                        <a href="#" class="linkedin"><span class="fab fa-google"></span></a>
-                                        <a href="#" class="google-plus"><span class="fab fa-linkedin-in"></span></a>
-										<a href="#" class="google-plus"><span class="fab fa-instagram"></span></a>
+                                        <a href="#" class="linkedin"><span class="fab fa-google"></span></a> |     -->
+                                <div class="post-share-options clearfix">
+                                    <div class="pull-left tags">
+                                    	{% for tag in post.tags.all %}
+                                    		<a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a>
+                                    	{% endfor %}
                                     </div>
+                                    <div class="pull-right social-icons clearfix">
+                                        
+                                        <div class="share">Как вам статья?</div>
+										<a href="#" class="google-plus"><span class="far fa-heart" id="like"> 100</span></a>
+										<a href="#" class="google-plus"><span class="far fa-heart" id="dislike"> 0</span></a>
+                                
+                                    </div>
+
                                 </div>
+                                
 							</div>
 						</div>
 						
 						<!--Comments Area-->
+						{% if post.comment_set.count > 0 %}
 						<div class="comments-area">
 							<div class="group-title">
-								<h2>2 Comments</h2>
+								<h2>Комментарии <small>( {{ post.comment_set.count }} )</small></h2>
 							</div>
-							
-							<div class="comment-box">
-								<div class="comment">
-									<div class="author-thumb"><img src="images/resource/author-1.jpg" alt=""></div>
-									<div class="comment-info clearfix"><strong>Micheal yard</strong><div class="comment-time">13 June, 2019      at 07:30</div></div>
-									<div class="text">Lorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean massa ligulai dolor Aenean massa ligulai dolor Aenean massa.</div>
-									<a class="theme-btn reply-btn" href="#">Reply</a>
+							{% for comment in post.get_comment %}
+								<div class="comment-box">
+									<div class="comment">
+										<div class="author-thumb"><img src="{% static 'images/resource/author-1.jpg' %}" alt=""></div>
+										<div class="comment-info clearfix"><strong>{{ comment.author }}</strong><div class="comment-time">{{ comment.created }}</div></div>
+										<div class="text">{{ comment.text }}</div>
+										<a class="theme-btn reply-btn" href="#formComment" onclick="addReview('{{ comment.author }}', '{{ comment.id }}')">Ответить</a>
+									</div>
 								</div>
-							</div>
+								{% for comm in comment.comment_set.all %}
+									<div class="comment-box reply-comment">
+										<div class="comment">
+											<div class="author-thumb"><img src="{% static 'images/resource/author-2.jpg' %}" alt=""></div>
+											<div class="comment-info clearfix"><strong>{{ comm.author }} </strong><div class="comment-time">{{ comm.created }}</div></div>
+											<div class="text">{{ comm.text }}</div>
+											<a class="theme-btn reply-btn" href="#">Ответить</a>
+										</div>
+									</div>
+								{% endfor %}
+								
+							{% endfor %}
 							
-							<div class="comment-box reply-comment">
-								<div class="comment">
-									<div class="author-thumb"><img src="images/resource/author-2.jpg" alt=""></div>
-									<div class="comment-info clearfix"><strong>Adam Gilgrist</strong><div class="comment-time">13 June, 2019      at 07:30</div></div>
-									<div class="text">Lorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean.</div>
-									<a class="theme-btn reply-btn" href="#">Reply</a>
-								</div>
-							</div>
-							
-							<div class="comment-box">
-								<div class="comment">
-									<div class="author-thumb"><img src="images/resource/author-3.jpg" alt=""></div>
-									<div class="comment-info clearfix"><strong>Pollard Micheal</strong><div class="comment-time">13 June, 2019      at 07:30</div></div>
-									<div class="text">Lorem ipsum dolor sit amet, consectetuer a the adipiscing elit. Aenean commodo ligulai dolor Aenean massa ligulai dolor Aenean massa ligulai dolor Aenean massa.</div>
-									<a class="theme-btn reply-btn" href="#">Reply</a>
-								</div>
-							</div>
 							
 						</div>
+						{% else %}
+						<div class="comments-area">
+							
+								<h2><small>Пока еще нет комментариев. Станьте первым </small></h2>
+							
+						</div>
+							
+						{% endif %}
+						
 						
 						<!-- Comment Form -->
 						<div class="comment-form">
 								
-							<div class="group-title"><h2>Leave A Comment</h2></div>
+							<div class="group-title"><h2>Ваш комментарий</h2></div>
 							
 							<!--Comment Form-->
-							<form method="post" action="http://ary-themes.com/html/noor_tech/dream-property/blog.html">
+							<form action="{% url 'add_comment' post.id %}" method="post" id="formComment">
+								{% csrf_token %}
 								<div class="row clearfix">
+									<input type="hidden" name="reply_to" id="contactparent" value="">
+									<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+										<input type="text" name="author" value="Аноним">
+									</div>
 									
 									<div class="col-lg-6 col-md-6 col-sm-12 form-group">
-										<input type="text" name="username" placeholder="Full Name" required>
+										<input type="email" name="email" placeholder="Email (не будет виден другим)" required>
 									</div>
-									
-									<div class="col-lg-6 col-md-6 col-sm-12 form-group">
-										<input type="email" name="email" placeholder="Email" required>
+
+									<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+										<textarea class="darma" name="text" placeholder="Ваше сообщение" id="contactcomment" required></textarea>
 									</div>
 									
 									<div class="col-lg-12 col-md-12 col-sm-12 form-group">
-										<input type="text" name="subject" placeholder="Subject" required>
-									</div>
-									
-									<div class="col-lg-12 col-md-12 col-sm-12 form-group">
-										<textarea class="darma" name="message" placeholder="Your Message"></textarea>
-									</div>
-									
-									<div class="col-lg-12 col-md-12 col-sm-12 form-group">
-										<button class="theme-btn btn-style-two" type="submit" name="submit-form"><span class="txt">SEND MESSAGE</span></button>
+										<button class="theme-btn btn-style-two" type="submit" name="submit-form"><span class="txt">ОТПРАВИТЬ</span></button>
 									</div>
 									
 								</div>
@@ -870,55 +823,25 @@
     </div>
 </div>
 
-<!-- Color Palate / Color Switcher -->
-<div class="color-palate">
-    <div class="color-trigger">
-        <i class="fas fa-cog"></i>
-    </div>
-    <div class="color-palate-head">
-        <h6>Choose Your Color</h6>
-    </div>
-    <div class="various-color clearfix">
-        <div class="colors-list">
-            <span class="palate default-color active" data-theme-file="css/color-themes/default-theme.css"></span>
-            <span class="palate yellow-color" data-theme-file="css/color-themes/yellow-theme.css"></span>
-            <span class="palate olive-color" data-theme-file="css/color-themes/olive-theme.css"></span>
-            <span class="palate orange-color" data-theme-file="css/color-themes/orange-theme.css"></span>
-            <span class="palate purple-color" data-theme-file="css/color-themes/purple-theme.css"></span>
-            <span class="palate teal-color" data-theme-file="css/color-themes/teal-theme.css"></span>
-            <span class="palate brown-color" data-theme-file="css/color-themes/brown-theme.css"></span>
-            <span class="palate redd-color" data-theme-file="css/color-themes/redd-color.css"></span>
-        </div>
-    </div>
-	
-	<ul class="rtl-version option-box"> <li class="rtl">RTL Version</li> <li>LTR Version</li> </ul>
-
-    <a href="#" class="purchase-btn">Purchase now $17</a>
-    
-    <div class="palate-foo">
-        <span>You will find much more options for colors and styling in admin panel. This color picker is used only for demonstation purposes.</span>
-    </div>
-
-</div>
-
 <!--Scroll to top-->
-<script src="js/jquery.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.fancybox.js"></script>
-<script src="js/parallax.min.js"></script>
-<script src="js/isotope.js"></script>
-<script src="js/jquery.paroller.min.js"></script>
-<script src="js/owl.js"></script>
-<script src="js/dropzone.js"></script>
-<script src="js/wow.js"></script>
-<script src="js/sticky.js"></script>
-<script src="js/tilt.jquery.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/appear.js"></script>
-<script src="js/script.js"></script>
-<script src="js/color-settings.js"></script>
+<script src="{% static 'js/my_test.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox.js' %}"></script>
+<script src="{% static 'js/parallax.min.js' %}"></script>
+<script src="{% static 'js/isotope.js' %}"></script>
+<script src="{% static 'js/jquery.paroller.min.js' %}"></script>
+<script src="{% static 'js/owl.js' %}"></script>
+<script src="{% static 'js/dropzone.js' %}"></script>
+<script src="{% static 'js/wow.js' %}"></script>
+<script src="{% static 'js/sticky.js' %}"></script>
+<script src="{% static 'js/tilt.jquery.min.js' %}"></script>
+<script src="{% static 'js/swiper.min.js' %}"></script>
+<script src="{% static 'js/appear.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/color-settings.js' %}"></script>
 
 </body>
 
